@@ -21,7 +21,7 @@ def get_config_processors(collect=AJAX_CONFIG_PROCESSORS):
 		processors.append(func)
 	return processors
 
-def ajax_context(request):
+def js_context(request):
 	processors = get_config_processors()
 	context = {}
 	for processor in processors:
