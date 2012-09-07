@@ -1,7 +1,7 @@
-from django_ajax.config import js_context
+from django_ajax.config import js_context as get_js_context
 
-def config(request):
+def js_context(request):
 	return {
-		'JS_CONTEXT': js_context(request)
+		'JS_CONTEXT': get_js_context(request)
 	}
 
