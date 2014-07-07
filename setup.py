@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "django_ajax",
-    version = "0.1.1-1",
+    version = "0.2.0",
     description = 'Utility app to support AJAX development in Django',
     author = 'David Danier',
     author_email = 'david.danier@team23.de',
@@ -16,7 +16,7 @@ setup(
         'Django >=1.4',
     ],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',

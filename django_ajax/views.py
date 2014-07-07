@@ -3,16 +3,23 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django_ajax.decorators import render_to_json as render_to_json_decorator
 
+
 def default_getstate(obj):
     try:
         return obj.__getstate__()
     except AttributeError:
         # TODO: Fix this, must raise exception somehow
         from django.utils.simplejson import JSONEncoder
+
         return JSONEncoder.default(None, obj)
 
+
 def render_to_json(request, json_obj):
-    import django.utils.simplejson as json
+    try:
+        import json
+    except ImportError:
+        import django.utils.simplejson as json
+
     json_string = json.dumps(json_obj, default=default_getstate)
     response = HttpResponse(json_string)
     # We support <iframe>-responses by allowing passing the iframe-param here.
@@ -26,6 +33,7 @@ def render_to_json(request, json_obj):
     response['Pragma'] = "no cache"
     response['Cache-Control'] = "no-cache, must-revalidate"
     return response
+
 
 @render_to_json_decorator
 def login(request, authentication_form=AuthenticationForm):
@@ -52,9 +60,11 @@ def login(request, authentication_form=AuthenticationForm):
         'authenticated': False,
     }
 
+
 @render_to_json_decorator
 def logout(request):
     from django.contrib.auth import logout
+
     logout(request)
     return {
         'status': 'ok',

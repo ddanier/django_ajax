@@ -1,7 +1,12 @@
 from django import template
-import django.utils.simplejson as _json
+
+try:
+    import json as _json
+except ImportError:
+    import django.utils.simplejson as _json
 
 register = template.Library()
+
 
 class JsonNode(template.Node):
     def __init__(self, variable, or_null):
@@ -19,6 +24,7 @@ class JsonNode(template.Node):
         if hasattr(obj, 'ajax_data'):
             obj = obj.ajax_data()
         return _json.dumps(obj)
+
 
 @register.tag
 def json(parser, token):

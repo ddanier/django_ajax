@@ -1,5 +1,6 @@
 from django.utils.datastructures import MultiValueDict
 
+
 def jquery_to_dict(values):
     result = MultiValueDict()
     if not isinstance(values, (list, tuple, set)):
